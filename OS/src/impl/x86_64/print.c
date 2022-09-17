@@ -24,6 +24,23 @@ void clear_row(size_t row) {
     }
 }
 
+void scroll(size_t rows) {
+    struct Char empty = (struct Char) {
+        character: ' ',
+        color: color,
+    };
+    for (size_t i = 0; i < NUM_COLS * NUM_ROWS; i++){
+        if(i >= NUM_COLS * (NUM_ROWS - rows)) {
+            buffer[i] = empty;
+        }
+        else
+        {
+            buffer[i] = buffer[i + NUM_COLS * rows];
+        }
+    }
+
+}
+
 void print_clear() {
     for (size_t i = 0; i < NUM_ROWS; i++) {
         clear_row(i);
@@ -37,7 +54,11 @@ void print_newline() {
         row++;
         return;
     }
-
+    else
+    {
+        scroll(row - NUM_ROWS - 1);
+        row = NUM_ROWS - 1;
+    }
     for (size_t row = 1; row < NUM_ROWS; row++) {
         for (size_t col = 0; col < NUM_COLS; col++) {
             struct Char character = buffer[col + NUM_COLS * row];
@@ -67,6 +88,11 @@ void print_char(char character) {
 }
 
 void print_str(char* str) {
+    if (row > NUM_ROWS - 1)
+    {
+        scroll(row - NUM_ROWS - 1);
+        row = NUM_ROWS - 1;
+    }
     for (size_t i = 0; 1; i++) {
         char character = (uint8_t) str[i];
 

@@ -30,5 +30,8 @@ void kernel_main() {
     current_row = get_row();
     cursor_setpos(current_row, 26);
     print_str("Press any key to continue");
+
+    cursor_setpos(29, 1);
+    print_str("this is a test");
    
 }

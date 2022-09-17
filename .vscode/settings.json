@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "list": "c",
+        "vector": "c",
+        "xhash": "c",
+        "xlocinfo": "c",
+        "xstring": "c",
+        "xutility": "c"
+    }
+}
