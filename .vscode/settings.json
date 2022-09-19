@@ -6,5 +6,6 @@
         "xlocinfo": "c",
         "xstring": "c",
         "xutility": "c"
-    }
+    },
+    "C_Cpp.intelliSenseEngineFallback": "Disabled"
 }

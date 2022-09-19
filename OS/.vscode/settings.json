@@ -1,3 +1,5 @@
 {
-    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools"
+    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
+    "C_Cpp.default.includePath": ["D:/Coding/C-C++/CustomOS/OS/src/intf", "$(Default)"],
+    "C_Cpp.default.compileCommands": "docker exec os-dev-environment make build-x86_64"
 }
