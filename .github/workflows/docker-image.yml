@@ -36,4 +36,4 @@ jobs:
         title: "Development Build"
         files: |
           LICENSE.txt
-          *.iso
+          OS/dist/x86_64/kernel.iso
