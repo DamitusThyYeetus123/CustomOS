@@ -12,5 +12,10 @@ void kernel_main() {
         line++;
     }
     cursor_setpos(0,0);
-    print_input();
+    // print_input();
+    char arr[1] = "";
+    get_input_till_key_pressed(0x1C, arr);
+    for (size_t i=0; i < 1; i++){
+        print_str(arr[i]);
+    }
 }

@@ -2,6 +2,66 @@
 #include "print.h"
 #include "interrupts.h"
 #include "time.h"
+
+struct scan_code_type {
+    uint32_t code;
+    char* shifted;
+    char* normal;
+}; 
+
+struct scan_code_type scan_codes[] = {
+    {0x02, "!", "1"},
+    {0x03, "@", "2"},
+    {0x04, "#", "3"},
+    {0x05, "$", "4"},
+    {0x06, "%", "5"},
+    {0x07, "^", "6"},
+    {0x08, "&", "7"},
+    {0x09, "*", "8"},
+    {0x0A, "(", "9"},
+    {0x0B, ")", "0"},
+    {0x0C, "_", "-"},
+    {0x0D, "+", "="},
+    {0x0F, "    ", "    "},
+    {0x10, "Q", "q"},
+    {0x11, "W", "w"},
+    {0x12, "E", "e"},
+    {0x13, "R", "r"},
+    {0x14, "T", "t"},
+    {0x15, "Y", "y"},
+    {0x16, "U", "u"},
+    {0x17, "I", "i"},
+    {0x18, "O", "o"},
+    {0x19, "P", "p"},
+    {0x1A, "{", "["},
+    {0x1B, "}", "]"},
+    {0x1C, "\n", "\n"},
+    {0x1E, "A", "a"},
+    {0x1F, "S", "s"},
+    {0x20, "D", "d"},
+    {0x21, "F", "f"},
+    {0x22, "G", "g"},
+    {0x23, "H", "h"},
+    {0x24, "J", "j"},
+    {0x25, "K", "k"},
+    {0x26, "L", "l"},
+    {0x27, ":", ";"},
+    {0x28, "\"", "'"},
+    {0x29, "~", "`"},
+    {0x2B, "|", "\\"},
+    {0x2C, "Z", "z"},
+    {0x2D, "X", "x"},
+    {0x2E, "C", "c"},
+    {0x2F, "V", "v"},
+    {0x30, "B", "b"},
+    {0x31, "N", "n"},
+    {0x32, "M", "m"},
+    {0x33, "<", ","},
+    {0x34, ">", "."},
+    {0x35, "?", "/"},
+    {0x39, " ", " "}
+};
+
 void print_input() {
     uint8_t c = inb(0x0060);
     uint8_t oldc =  inb(0x0060);
@@ -11,7 +71,7 @@ void print_input() {
         c = inb(0x0060);
         if(c == 0x0E) {
             print_str("\b");
-            sleep(10);
+            sleep(20);
         }
         if(oldc != c) {
             if(c == 0x36 || c == 0x2A) {
@@ -20,309 +80,63 @@ void print_input() {
             if(c == 0xB6 || c == 0xAA) {
                 shift = false;
             }
-            // find better solution
-            if(shift == true){
-                if(c == 0x02) {
-                    print_str("!");
+            for (size_t n = 0; n <  sizeof(scan_codes)/sizeof(scan_codes[0]); n++){
+                if (scan_codes[n].code == 0){
+                    break;
                 }
-                if(c == 0x03) {
-                    print_str("@");
-                }
-                if(c == 0x04) {
-                    print_str("#");
-                }
-                if(c == 0x05) {
-                    print_str("$");
-                }
-                if(c == 0x06) {
-                    print_str("%");
-                }
-                if(c == 0x07) {
-                    print_str("^");
-                }
-                if(c == 0x08) {
-                    print_str("&");
-                }
-                if(c == 0x09) {
-                    print_str("*");
-                }
-                if(c == 0x0A) {
-                    print_str("(");
-                }
-                if(c == 0x0B) {
-                    print_str(")");
-                }
-                if(c == 0x0C) {
-                    print_str("_");
-                }
-                if(c == 0x0D) {
-                    print_str("+");
-                }
-                if(c == 0x0F) {
-                    print_str("    ");
-                }
-                if(c == 0x10) {
-                    print_str("Q");
-                }
-                if(c == 0x11) {
-                    print_str("W");
-                }
-                if(c == 0x12) {
-                    print_str("E");
-                }
-                if(c == 0x13) {
-                    print_str("R");
-                }
-                if(c == 0x14) {
-                    print_str("T");
-                }
-                if(c == 0x15) {
-                    print_str("Y");
-                }
-                if(c == 0x16) {
-                    print_str("U");
-                }
-                if(c == 0x17) {
-                    print_str("I");
-                }
-                if(c == 0x18) {
-                    print_str("O");
-                }
-                if(c == 0x19) {
-                    print_str("P");
-                }
-                if(c == 0x1A) {
-                    print_str("{");
-                }
-                if(c == 0x1B) {
-                    print_str("}");
-                }
-                if(c == 0x1C) {
-                    print_str("\n");
-                }
-                if(c == 0x1E) {
-                    print_str("A");
-                }
-                if(c == 0x1F) {
-                    print_str("S");
-                }
-                if(c == 0x20) {
-                    print_str("D");
-                }
-                if(c == 0x21) {
-                    print_str("F");
-                }
-                if(c == 0x22) {
-                    print_str("G");
-                }
-                if(c == 0x23) {
-                    print_str("H");
-                }
-                if(c == 0x24) {
-                    print_str("J");
-                }
-                if(c == 0x25) {
-                    print_str("K");
-                }
-                if(c == 0x26) {
-                    print_str("L");
-                }
-                if(c == 0x27) {
-                    print_str(":");
-                }
-                if(c == 0x28) {
-                    print_str("\"");
-                }
-                if(c == 0x29) {
-                    print_str("~");
-                }
-                if(c == 0x2B) {
-                    print_str("|");
-                }
-                if(c == 0x2C) {
-                    print_str("Z");
-                }
-                if(c == 0x2D) {
-                    print_str("X");
-                }
-                if(c == 0x2E) {
-                    print_str("C");
-                }
-                if(c == 0x2F) {
-                    print_str("V");
-                }
-                if(c == 0x30) {
-                    print_str("B");
-                }
-                if(c == 0x31) {
-                    print_str("N");
-                }
-                if(c == 0x32) {
-                    print_str("M");
-                }
-                if(c == 0x33) {
-                    print_str("<");
-                }
-                if(c == 0x34) {
-                    print_str(">");
-                }
-                if(c == 0x35) {
-                    print_str("?");
-                }
-                if(c == 0x39) {
-                    print_str(" ");
+                if (scan_codes[n].code == c) {
+                    if (shift){
+                        print_str(scan_codes[n].shifted);
+                    }
+                    else {
+                        print_str(scan_codes[n].normal);
+                    }
+                    break;
                 }
             }
-            else if(shift == false){
-                if(c == 0x02) {
-                    print_str("1");
+        }
+    }
+}
+
+char* get_input_till_key_pressed(uint8_t key, char* arr) {
+    uint8_t c = inb(0x0060);
+    uint8_t oldc = inb(0x0060);
+    int currentChar = 0;
+    bool shift = false;
+    for(size_t i=0; i>=0; i++){
+        oldc = c;
+        c = inb(0x0060);
+        if(c == 0x0E) {
+            print_str("\b");
+            sleep(20);
+        }
+        if(oldc != c) {
+            if(c == 0x36 || c == 0x2A) {
+                shift = true;
+            }
+            if(c == 0xB6 || c == 0xAA) {
+                shift = false;
+            }
+            for (size_t n = 0; n <  sizeof(scan_codes)/sizeof(scan_codes[0]); n++){
+                if (scan_codes[n].code == 0){
+                    break;
                 }
-                if(c == 0x03) {
-                    print_str("2");
-                }
-                if(c == 0x04) {
-                    print_str("3");
-                }
-                if(c == 0x05) {
-                    print_str("4");
-                }
-                if(c == 0x06) {
-                    print_str("5");
-                }
-                if(c == 0x07) {
-                    print_str("6");
-                }
-                if(c == 0x08) {
-                    print_str("7");
-                }
-                if(c == 0x09) {
-                    print_str("8");
-                }
-                if(c == 0x0A) {
-                    print_str("9");
-                }
-                if(c == 0x0B) {
-                    print_str("0");
-                }
-                if(c == 0x0C) {
-                    print_str("-");
-                }
-                if(c == 0x0D) {
-                    print_str("=");
-                }
-                if(c == 0x0F) {
-                    print_str("    ");
-                }
-                if(c == 0x10) {
-                    print_str("q");
-                }
-                if(c == 0x11) {
-                    print_str("w");
-                }
-                if(c == 0x12) {
-                    print_str("e");
-                }
-                if(c == 0x13) {
-                    print_str("r");
-                }
-                if(c == 0x14) {
-                    print_str("t");
-                }
-                if(c == 0x15) {
-                    print_str("y");
-                }
-                if(c == 0x16) {
-                    print_str("u");
-                }
-                if(c == 0x17) {
-                    print_str("i");
-                }
-                if(c == 0x18) {
-                    print_str("o");
-                }
-                if(c == 0x19) {
-                    print_str("p");
-                }
-                if(c == 0x1A) {
-                    print_str("[");
-                }
-                if(c == 0x1B) {
-                    print_str("]");
-                }
-                if(c == 0x1C) {
-                    print_str("\n");
-                }
-                if(c == 0x1E) {
-                    print_str("a");
-                }
-                if(c == 0x1F) {
-                    print_str("s");
-                }
-                if(c == 0x20) {
-                    print_str("d");
-                }
-                if(c == 0x21) {
-                    print_str("f");
-                }
-                if(c == 0x22) {
-                    print_str("g");
-                }
-                if(c == 0x23) {
-                    print_str("h");
-                }
-                if(c == 0x24) {
-                    print_str("j");
-                }
-                if(c == 0x25) {
-                    print_str("k");
-                }
-                if(c == 0x26) {
-                    print_str("l");
-                }
-                if(c == 0x27) {
-                    print_str(";");
-                }
-                if(c == 0x28) {
-                    print_str("'");
-                }
-                if(c == 0x29) {
-                    print_str("`");
-                }
-                if(c == 0x2B) {
-                    print_str("\\");
-                }
-                if(c == 0x2C) {
-                    print_str("z");
-                }
-                if(c == 0x2D) {
-                    print_str("x");
-                }
-                if(c == 0x2E) {
-                    print_str("c");
-                }
-                if(c == 0x2F) {
-                    print_str("v");
-                }
-                if(c == 0x30) {
-                    print_str("b");
-                }
-                if(c == 0x31) {
-                    print_str("n");
-                }
-                if(c == 0x32) {
-                    print_str("m");
-                }
-                if(c == 0x33) {
-                    print_str(",");
-                }
-                if(c == 0x34) {
-                    print_str(".");
-                }
-                if(c == 0x35) {
-                    print_str("/");
-                }
-                if(c == 0x39) {
-                    print_str(" ");
+
+                if (scan_codes[n].code == c) {
+                    if (scan_codes[n].code == key){
+                        return arr;
+                    }
+                    if (shift){
+                        arr = arr + scan_codes[n].shifted;
+                        currentChar++;
+                        print_str(scan_codes[n].shifted);
+                    }
+                    else {
+                        arr = arr + scan_codes[n].normal;
+                        currentChar++;
+                        print_str(scan_codes[n].normal);
+                    }
+                    break;
                 }
             }
         }
