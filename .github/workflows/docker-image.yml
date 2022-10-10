@@ -26,5 +26,5 @@ jobs:
         image: buildenv:latest
         options: -v ${{ github.workspace }}/OS:/work
         run: |
-          ls
+          cd OS
           make build-x86_64
