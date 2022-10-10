@@ -1,7 +1,7 @@
 #include "print.h"
 #include "input.h"
 #include "time.h"
-extern "c" void kernel_main();
+extern "C" void kernel_main();
 void kernel_main() {
     print_clear();
     //Set BG Colour
