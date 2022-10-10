@@ -25,4 +25,4 @@ jobs:
         # Image
         image: buildenv:latest
         # Options
-        run: make build-x86_64
+        run: cd OS && make build-x86_64
