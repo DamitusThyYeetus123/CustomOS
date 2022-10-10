@@ -1,4 +1,4 @@
 #include <cpuid.h>
-#include <stdint.h>
+#include <cstdint>
 
 void sleep (uint32_t millis);
