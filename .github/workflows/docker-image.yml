@@ -10,16 +10,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file OS/buildenv/Dockerfile --tag buildenv:latest
-    
+
     - name: Docker Run Action
       # You may pin to the exact commit or the version.
       # uses: addnab/docker-run-action@4f65fabd2431ebc8d299f8e5a018d79a769ae185
       uses: addnab/docker-run-action@v3
       with:
         # Image
-        image: buildenv:latest
+        image: damtech123/custom-os-x86_64-environment:latest
         options: -v ${{ github.workspace }}:/work
         run: |
           cd /work/OS
