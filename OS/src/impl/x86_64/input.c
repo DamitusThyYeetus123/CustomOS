@@ -2,6 +2,7 @@
 #include "print.h"
 #include "interrupts.h"
 #include "time.h"
+#include "string.h"
 
 struct scan_code_type {
     uint32_t code;
@@ -98,7 +99,7 @@ void print_input() {
     }
 }
 
-char* get_input_till_key_pressed(uint8_t key, char* arr) {
+char* get_input_till_key_pressed(uint8_t key, char out[4096]) {
     uint8_t c = inb(0x0060);
     uint8_t oldc = inb(0x0060);
     int currentChar = 0;
@@ -124,17 +125,33 @@ char* get_input_till_key_pressed(uint8_t key, char* arr) {
 
                 if (scan_codes[n].code == c) {
                     if (scan_codes[n].code == key){
-                        return arr;
+                        return out;
                     }
                     if (shift){
-                        arr = arr + scan_codes[n].shifted;
-                        currentChar++;
-                        print_str(scan_codes[n].shifted);
+                        for(size_t p=0; p<8; p++){
+                            if(scan_codes[n].shifted[p] != NULL){
+                                out[currentChar] = scan_codes[n].shifted[p];
+                                currentChar++;
+                            }
+                            else {
+                                print_str(scan_codes[n].shifted);
+                                break;
+                            }
+                        }
+
                     }
                     else {
-                        arr = arr + scan_codes[n].normal;
-                        currentChar++;
-                        print_str(scan_codes[n].normal);
+                        for(size_t p=0; p<8; p++){
+                            if(scan_codes[n].normal[p] != NULL){
+                                out[currentChar] = scan_codes[n].normal[p];
+                                currentChar++;
+                            }
+                            else {
+                                print_str(scan_codes[n].normal);
+                                break;
+                            }
+                        }
+                        
                     }
                     break;
                 }

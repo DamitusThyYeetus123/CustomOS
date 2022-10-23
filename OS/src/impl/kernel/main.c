@@ -13,9 +13,7 @@ void kernel_main() {
     }
     cursor_setpos(0,0);
     // print_input();
-    char arr[1] = "";
+    char arr[4096];
     get_input_till_key_pressed(0x1C, arr);
-    for (size_t i=0; i < 1; i++){
-        print_str(arr[i]);
-    }
+    print_str(arr);
 }
