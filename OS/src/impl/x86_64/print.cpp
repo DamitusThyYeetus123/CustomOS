@@ -136,7 +136,7 @@ void print_str(char* str) {
             while (buffer[col + NUM_COLS * row].character == ' ') {
                 col = col - 1;
             }
-            if (buffer[col + NUM_COLS * row].character != ' ') {
+            if (buffer[col + NUM_COLS * row].character != ' ' && buffer[col + NUM_COLS * row].character != '>' ) {
                 buffer[col + NUM_COLS * row - 1] = cursor;
                 buffer[col + NUM_COLS * row] = empty;
                 if(col != 0) {
