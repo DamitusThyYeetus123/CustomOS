@@ -14,15 +14,24 @@ extern "C" void kernel_main() {
     }
     cursor_setpos(0,0);
     // print_input();
-    char arr[4096];
-    get_input_till_key_pressed(0x1C, arr);
-    //implement console
-    int index=0;
-    if(strstr1(arr, "help")){
-        print_str("test");
-    } else if(strstr1(arr, "ping")){
-        print_str("pong");
-    } else {
-        print_str(arr);
+    while(true){
+        print_str(">");
+        char arr[4096];
+        get_input_till_key_pressed(0x1C, arr);
+        //implement console
+        int index=0;
+        if(strstr1(arr, "help")){
+            print_str("test");
+            print_str("\n")
+            return;
+        } else if(strstr1(arr, "ping")){
+            print_str("pong");
+            print_str("\n")
+            return;
+        } else {
+            print_str(arr);
+            print_str("\n");
+            return;
+        }
     }
 }
