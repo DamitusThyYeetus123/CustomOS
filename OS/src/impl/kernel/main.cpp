@@ -1,6 +1,7 @@
 #include "print.h"
 #include "input.h"
 #include "time.h"
+#include "string.h"
 
 extern "C" void kernel_main() {
     print_clear();
