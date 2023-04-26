@@ -21,17 +21,14 @@ extern "C" void kernel_main() {
         //implement console
         int index=0;
         if(strstr1(arr, "help")){
-            print_str("test");
+            print_str("\ntest");
             print_str("\n");
-            return;
         } else if(strstr1(arr, "ping")){
-            print_str("pong");
+            print_str("\npong");
             print_str("\n");
-            return;
         } else {
             print_str(arr);
             print_str("\n");
-            return;
         }
     }
 }
