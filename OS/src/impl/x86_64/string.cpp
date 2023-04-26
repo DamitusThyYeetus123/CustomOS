@@ -16,3 +16,19 @@ char* join_strings(char* stringA, char* stringB, char out[2048]) {
     }
     return out;
 }
+char *strstr1(const char *str, const char *substring)
+{
+  const char *a, *b = substring;
+
+  if ( !*b ) return (char *) str;
+  for ( ; *str ; str++) {
+    if (*str != *b) continue;
+    a = str;
+    for (;;) {
+      if ( !*b ) return (char *) str;
+      if (*a++ != *b++) break;
+    }
+    b = substring;
+  }
+  return NULL;
+}
