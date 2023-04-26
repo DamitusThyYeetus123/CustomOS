@@ -1,6 +1,7 @@
 #include "print.h"
 #include "input.h"
 #include "time.h"
+#include "string.h"
 
 extern "C" void kernel_main() {
     print_clear();
@@ -17,9 +18,9 @@ extern "C" void kernel_main() {
     get_input_till_key_pressed(0x1C, arr);
     //implement console
     int index=0;
-    if(arr==(char*)'help'){
+    if(strstr1(arr, 'help')){
         print_str('test');
-    } else if(arr==(char*)'ping'){
+    } else if(strstr1(arr, 'ping')){
         print_str('pong');
     } else {
         print_str(arr);
