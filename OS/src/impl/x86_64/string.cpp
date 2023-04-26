@@ -32,7 +32,7 @@ char *strstr1(const char *str, const char *substring)
   }
   return NULL;
 }
-void clean(char *var) {
+void clear(char *var) {
     int i = 0;
     while(var[i] != '\0') {
         var[i] = '\0';
