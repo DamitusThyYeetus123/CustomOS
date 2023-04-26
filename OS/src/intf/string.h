@@ -6,4 +6,4 @@
 
 int strlen(char* string);
 char* join_strings(char* stringA, char* stringB, char out[4096]);
-char *strstr1(const char *str, const char *substring)
+char* strstr1(const char* str, const char* substring);
