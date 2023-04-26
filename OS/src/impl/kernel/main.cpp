@@ -23,12 +23,15 @@ extern "C" void kernel_main() {
         if(strstr1(arr, "help")){
             print_str("\ntest");
             print_str("\n");
+            clear(arr);
         } else if(strstr1(arr, "ping")){
             print_str("\npong");
             print_str("\n");
+            clear(arr);
         } else {
             print_str(arr);
             print_str("\n");
+            clear(arr);
         }
     }
 }
