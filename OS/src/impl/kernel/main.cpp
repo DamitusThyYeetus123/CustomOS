@@ -15,5 +15,13 @@ extern "C" void kernel_main() {
     // print_input();
     char arr[4096];
     get_input_till_key_pressed(0x1C, arr);
-    print_str(arr);
+    //implement console
+    int index=0;
+    if(arr=='help'){
+        print_str('test');
+    } else if(arr=='ping'){
+        print_str('pong');
+    } else {
+        print_str(arr);
+    }
 }
